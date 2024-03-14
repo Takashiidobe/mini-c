@@ -1,0 +1,43 @@
+---
+source: src/scanner.rs
+expression: scanner.scan()
+---
+- type: Float
+  value:
+    Float: 20
+  info:
+    start: 0
+    length: 4
+    line: 0
+- type: Plus
+  value: ~
+  info:
+    start: 4
+    length: 1
+    line: 0
+- type: Float
+  value:
+    Float: 30
+  info:
+    start: 5
+    length: 4
+    line: 0
+- type: Minus
+  value: ~
+  info:
+    start: 9
+    length: 1
+    line: 0
+- type: Integer
+  value:
+    Integer: 3
+  info:
+    start: 10
+    length: 1
+    line: 0
+- type: Eof
+  value: ~
+  info:
+    start: 11
+    length: 1
+    line: 0

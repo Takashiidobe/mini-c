@@ -1,0 +1,51 @@
+# <expression_statement> ::= <expression> ';' ;
+<expression>           ::= <literal>
+                        | <number_unary>
+                        | <bool_unary>
+                        | <string_expr>
+                        | <number_expr>
+                        | <bool_expr>  ;
+
+<number_unary>         ::= "-" "(" <number_expr> ")" ; # number -> number
+<bool_unary>           ::= "!" "(" <bool_expr> ")" ; # bool -> bool
+
+<string_expr>          ::= <string_concat> ; # string -> string
+<string_concat>        ::= 10 <string> "+" <string_expr> | "(" <string> "+" <string> ")" | <string> "+" <string> ; # string -> string -> string
+
+<number_expr>          ::= 10 <number_arith> <arithmetic> <number_expr> | <number_arith> | <number> ; # number -> number
+<number_arith>         ::= 10 <number> <arithmetic> <number_arith> | "(" <number> <arithmetic> <number_arith> ")" | <number> <arithmetic> <number> ; # number -> number -> number
+
+<bool_expr>            ::= <bool_eq> | <number_eq> | <string_eq> | <number_rel> | <bool> ; # bool -> bool
+<bool_eq>              ::= 10 <bool> <equality> <bool_eq> | "(" <bool> <equality> <bool> ")" | <bool> <equality> <bool> ; # bool -> bool -> bool
+<string_eq>            ::= <string> <equality> <string> ; # string -> string -> bool
+<number_eq>            ::= 10 <number> <equality> <number_eq> | "(" <number> <equality> <number> ")" | <number> <equality> <number> ; # number -> number -> bool
+<number_rel>           ::= 10 <number> <relational> <number_eq> | "(" <number> <relational> <number> ")" | <number> <relational> <number> ; # number -> number -> bool
+
+<operator>             ::= <equality> | <relational> | <arithmetic> ;
+<equality>             ::= "==" | "!="  ; # any -> any -> bool
+<relational>           ::= "<" | "<=" | ">" | ">=" ; # any -> any -> bool
+<arithmetic>           ::= "+"  | "-"  | "*" | "/" ; # string -> string -> string (for string concat) or number -> number -> number (otherwise)
+
+<number>               ::= <integer> "." <integer> | <integer> ;
+<integer>              ::= 10 <nat_digit> <integer> | <digit> ;
+<string>               ::= 1000 <double_quote> <characters> <double_quote> | <double_quote> <double_quote> ;
+<characters>           ::= 100 <alphanumeric> <characters> | <alphanumeric> ;
+<identifier>           ::= 100 <alpha> <alphanumeric> | <identifier> ;
+<alphanumeric>         ::= <alpha> | <digit> ;
+<alpha>                ::= 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' |
+                           'n' | 'o' | 'p' | 'q' | 'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' |
+                           'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' |
+                           'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' | 'W' | 'X' | 'Y' | 'Z' |
+                           '_' ;
+
+<digit>                ::= <zero> | <nat_digit>  ;
+<nat_digit>            ::= '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' ;
+<zero>                 ::= '0' ;
+
+<literal>              ::= <number> | <string> | <bool> | <nil> ;
+<bool>                 ::= "true" | "false" ;
+<nil>                  ::= "nil" ;
+
+<double_quote>         ::= '"' ;
+
+<space>                ::= ' ' ;

@@ -1,0 +1,108 @@
+---
+source: src/scanner.rs
+expression: scanner.scan()
+---
+- type: Integer
+  value:
+    Integer: 93367
+  info:
+    start: 0
+    length: 5
+    line: 0
+- type: Minus
+  value: ~
+  info:
+    start: 5
+    length: 1
+    line: 0
+- type: Integer
+  value:
+    Integer: 76920
+  info:
+    start: 6
+    length: 5
+    line: 0
+- type: Plus
+  value: ~
+  info:
+    start: 11
+    length: 1
+    line: 0
+- type: Integer
+  value:
+    Integer: 596894
+  info:
+    start: 12
+    length: 6
+    line: 0
+- type: Minus
+  value: ~
+  info:
+    start: 18
+    length: 1
+    line: 0
+- type: Integer
+  value:
+    Integer: 231722
+  info:
+    start: 19
+    length: 6
+    line: 0
+- type: Minus
+  value: ~
+  info:
+    start: 25
+    length: 1
+    line: 0
+- type: Integer
+  value:
+    Integer: 8350
+  info:
+    start: 26
+    length: 4
+    line: 0
+- type: Minus
+  value: ~
+  info:
+    start: 30
+    length: 1
+    line: 0
+- type: Float
+  value:
+    Float: 3517484393530
+  info:
+    start: 31
+    length: 15
+    line: 0
+- type: Minus
+  value: ~
+  info:
+    start: 46
+    length: 1
+    line: 0
+- type: Integer
+  value:
+    Integer: 65
+  info:
+    start: 47
+    length: 2
+    line: 0
+- type: Plus
+  value: ~
+  info:
+    start: 49
+    length: 1
+    line: 0
+- type: Integer
+  value:
+    Integer: 710
+  info:
+    start: 50
+    length: 3
+    line: 0
+- type: Eof
+  value: ~
+  info:
+    start: 53
+    length: 1
+    line: 0

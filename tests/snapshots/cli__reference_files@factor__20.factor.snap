@@ -1,0 +1,9 @@
+---
+source: tests/cli.rs
+expression: test_output
+input_file: test-files/factor/20.factor
+---
+status: 0
+stdout:
+  - "-inf"
+stderr: []

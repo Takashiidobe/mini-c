@@ -33,7 +33,7 @@ impl Scanner {
         while !self.is_at_end() {
             let op = self.consume();
             match op {
-                '+' | '-' => {
+                '+' | '-' | '*' | '/' => {
                     let info = TokenInfo {
                         length: 1,
                         line: self.line,
@@ -42,20 +42,19 @@ impl Scanner {
 
                     self.line_pos += 1;
 
-                    match op {
-                        '+' => tokens.push(Token {
-                            r#type: TokenType::Plus,
-                            value: None,
-                            info,
-                        }),
-                        '-' => tokens.push(Token {
-                            r#type: TokenType::Minus,
-                            value: None,
-                            info,
-                        }),
-                        _ => unreachable!(),
-                    }
+                    tokens.push(Token {
+                        value: None,
+                        info,
+                        r#type: match op {
+                            '+' => TokenType::Plus,
+                            '-' => TokenType::Minus,
+                            '*' => TokenType::Star,
+                            '/' => TokenType::Slash,
+                            _ => unreachable!(),
+                        },
+                    });
                 }
+
                 '0'..='9' => tokens.push(self.number()),
                 '\n' => {
                     self.line += 1;

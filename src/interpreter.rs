@@ -24,7 +24,7 @@ impl Interpreter {
             match op {
                 OpCode::Constant(value) => self.stack.push(value.clone()),
                 OpCode::Return => return self.stack.last().unwrap().clone(),
-                OpCode::Op(Op::Plus) | OpCode::Op(Op::Minus) => self.interpret_bin_op(op.clone()),
+                OpCode::Op(_) => self.interpret_bin_op(op.clone()),
             }
             self.index += 1;
         }
@@ -39,21 +39,29 @@ impl Interpreter {
             (Value::Integer(a), Value::Integer(b)) => self.stack.push(match op {
                 OpCode::Op(Op::Plus) => Value::from(a + b),
                 OpCode::Op(Op::Minus) => Value::from(a - b),
+                OpCode::Op(Op::Multiply) => Value::from(a * b),
+                OpCode::Op(Op::Divide) => Value::from(a / b),
                 _ => unreachable!(),
             }),
             (Value::Float(a), Value::Float(b)) => self.stack.push(match op {
                 OpCode::Op(Op::Plus) => Value::from(a + b),
                 OpCode::Op(Op::Minus) => Value::from(a - b),
+                OpCode::Op(Op::Multiply) => Value::from(a * b),
+                OpCode::Op(Op::Divide) => Value::from(a / b),
                 _ => unreachable!(),
             }),
             (Value::Float(a), Value::Integer(b)) => self.stack.push(match op {
                 OpCode::Op(Op::Plus) => Value::from(a + b as f64),
                 OpCode::Op(Op::Minus) => Value::from(a - b as f64),
+                OpCode::Op(Op::Multiply) => Value::from(a * b as f64),
+                OpCode::Op(Op::Divide) => Value::from(a / b as f64),
                 _ => unreachable!(),
             }),
             (Value::Integer(a), Value::Float(b)) => self.stack.push(match op {
                 OpCode::Op(Op::Plus) => Value::from(a as f64 + b),
                 OpCode::Op(Op::Minus) => Value::from(a as f64 - b),
+                OpCode::Op(Op::Multiply) => Value::from(a as f64 * b),
+                OpCode::Op(Op::Divide) => Value::from(a as f64 / b),
                 _ => unreachable!(),
             }),
         }

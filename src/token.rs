@@ -15,6 +15,8 @@ pub enum TokenType {
     Float,
     Plus,
     Minus,
+    Star,
+    Slash,
     Error,
     #[default]
     Eof,

@@ -134,6 +134,22 @@ lazy_static! {
                 ..Default::default()
             },
         ),
+        (
+            TokenType::Slash,
+            ParseRule {
+                infix: InfixRule::Binary,
+                precedence: Precedence::Factor,
+                ..Default::default()
+            },
+        ),
+        (
+            TokenType::Star,
+            ParseRule {
+                infix: InfixRule::Binary,
+                precedence: Precedence::Factor,
+                ..Default::default()
+            },
+        ),
     ]);
 }
 
@@ -181,6 +197,8 @@ impl Parser {
             }
             TokenType::Plus => self.emit_byte(OpCode::Op(Op::Plus)),
             TokenType::Minus => self.emit_byte(OpCode::Op(Op::Minus)),
+            TokenType::Star => self.emit_byte(OpCode::Op(Op::Multiply)),
+            TokenType::Slash => self.emit_byte(OpCode::Op(Op::Divide)),
             TokenType::Eof => self.emit_byte(OpCode::Return),
             TokenType::Error => panic!("Reached an error"),
         }

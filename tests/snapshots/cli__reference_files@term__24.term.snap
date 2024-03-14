@@ -1,0 +1,9 @@
+---
+source: tests/cli.rs
+expression: test_output
+input_file: test-files/term/24.term
+---
+status: 0
+stdout:
+  - "885367903.5211854"
+stderr: []

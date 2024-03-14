@@ -1,0 +1,9 @@
+---
+source: tests/cli.rs
+expression: test_output
+input_file: test-files/factor/16.factor
+---
+status: 0
+stdout:
+  - "80654381171315.28"
+stderr: []

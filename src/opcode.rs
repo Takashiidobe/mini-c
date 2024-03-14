@@ -6,6 +6,8 @@ use crate::value::Value;
 pub enum Op {
     Plus,
     Minus,
+    Multiply,
+    Divide,
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -25,6 +27,8 @@ impl fmt::Display for OpCode {
             OpCode::Op(op) => match op {
                 Op::Plus => f.write_str("+"),
                 Op::Minus => f.write_str("-"),
+                Op::Multiply => f.write_str("*"),
+                Op::Divide => f.write_str("/"),
             },
             OpCode::Return => f.write_str("return"),
         }

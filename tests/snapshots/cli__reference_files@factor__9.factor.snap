@@ -6,6 +6,6 @@ input_file: test-files/factor/9.factor
 status: 101
 stdout: []
 stderr:
-  - "thread 'main' panicked at src/scanner.rs:112:59:"
+  - "thread 'main' panicked at src/scanner.rs:114:59:"
   - "called `Result::unwrap()` on an `Err` value: ParseIntError { kind: PosOverflow }"
   - "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace"

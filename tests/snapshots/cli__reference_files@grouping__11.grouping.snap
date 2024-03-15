@@ -1,0 +1,9 @@
+---
+source: tests/cli.rs
+expression: test_output
+input_file: test-files/grouping/11.grouping
+---
+status: 0
+stdout:
+  - "36557186192011.04"
+stderr: []

@@ -150,6 +150,13 @@ lazy_static! {
                 ..Default::default()
             },
         ),
+        (
+            TokenType::LeftParen,
+            ParseRule {
+                prefix: PrefixRule::Grouping,
+                ..Default::default()
+            },
+        ),
     ]);
 }
 
@@ -171,6 +178,7 @@ impl Parser {
             ..Default::default()
         }
     }
+
     pub fn parse(&mut self) -> Vec<OpCode> {
         while self.curr().r#type != TokenType::Eof {
             self.expression();
@@ -181,6 +189,19 @@ impl Parser {
 
     fn expression(&mut self) {
         self.parse_precedence(Precedence::Assignment);
+    }
+
+    fn grouping(&mut self) {
+        self.expression();
+        self.consume(&TokenType::RightParen, "Expect ')' after expression.")
+    }
+
+    fn consume(&mut self, token_type: &TokenType, message: &str) {
+        if self.curr().r#type == *token_type {
+            self.advance();
+            return;
+        }
+        panic!("{}", message);
     }
 
     fn binary(&mut self) {
@@ -200,7 +221,7 @@ impl Parser {
             TokenType::Star => self.emit_byte(OpCode::Op(Op::Multiply)),
             TokenType::Slash => self.emit_byte(OpCode::Op(Op::Divide)),
             TokenType::Eof => self.emit_byte(OpCode::Return),
-            TokenType::Error => panic!("Reached an error"),
+            _ => panic!("Reached an error"),
         }
     }
 
@@ -210,6 +231,7 @@ impl Parser {
 
         match prefix_rule {
             PrefixRule::Number => self.number(),
+            PrefixRule::Grouping => self.grouping(),
             PrefixRule::None => panic!("Expected expression"),
             _ => unreachable!(),
         }

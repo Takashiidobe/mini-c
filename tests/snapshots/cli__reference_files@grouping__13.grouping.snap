@@ -1,0 +1,9 @@
+---
+source: tests/cli.rs
+expression: test_output
+input_file: test-files/grouping/13.grouping
+---
+status: 0
+stdout:
+  - "41697972664110.836"
+stderr: []

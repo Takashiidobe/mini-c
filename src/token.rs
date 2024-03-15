@@ -18,6 +18,8 @@ pub enum TokenType {
     Star,
     Slash,
     Error,
+    LeftParen,
+    RightParen,
     #[default]
     Eof,
 }

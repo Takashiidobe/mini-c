@@ -1,7 +1,7 @@
 ---
 source: tests/cli.rs
 expression: test_output
-input_file: test-files/factor/9.factor
+input_file: test-files/unary/17.unary
 ---
 status: 101
 stdout: []

@@ -25,6 +25,13 @@ impl Interpreter {
                 OpCode::Constant(value) => self.stack.push(value.clone()),
                 OpCode::Return => return self.stack.last().unwrap().clone(),
                 OpCode::Op(_) => self.interpret_bin_op(op.clone()),
+                OpCode::Negate => {
+                    let top = self.stack.pop().unwrap();
+                    self.stack.push(match top {
+                        Value::Float(val) => Value::Float(-val),
+                        Value::Integer(val) => Value::Integer(-val),
+                    });
+                }
             }
             self.index += 1;
         }

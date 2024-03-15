@@ -1,7 +1,7 @@
 ---
 source: tests/cli.rs
 expression: test_output
-input_file: test-files/grouping/17.grouping
+input_file: test-files/unary/10.unary
 ---
 status: 101
 stdout: []

@@ -56,7 +56,6 @@ impl Scanner {
                         },
                     });
                 }
-
                 '0'..='9' => tokens.push(self.number()),
                 '\n' => {
                     self.line += 1;

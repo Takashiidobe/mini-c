@@ -15,6 +15,7 @@ pub enum OpCode {
     Constant(Value),
     Op(Op),
     Return,
+    Negate,
 }
 
 impl fmt::Display for OpCode {
@@ -31,6 +32,7 @@ impl fmt::Display for OpCode {
                 Op::Divide => f.write_str("/"),
             },
             OpCode::Return => f.write_str("return"),
+            OpCode::Negate => f.write_str("-"),
         }
     }
 }

@@ -129,9 +129,9 @@ lazy_static! {
         (
             TokenType::Plus,
             ParseRule {
+                prefix: PrefixRule::Unary,
                 infix: InfixRule::Binary,
                 precedence: Precedence::Term,
-                ..Default::default()
             },
         ),
         (
@@ -225,6 +225,18 @@ impl Parser {
         }
     }
 
+    fn unary(&mut self) {
+        let operator_type = self.prev().r#type;
+
+        self.parse_precedence(Precedence::Unary);
+
+        match operator_type {
+            TokenType::Minus => self.emit_byte(OpCode::Negate),
+            TokenType::Plus => {}
+            _ => unreachable!(),
+        }
+    }
+
     fn parse_precedence(&mut self, precedence: Precedence) {
         self.advance();
         let prefix_rule = get_rule(&self.prev().r#type).prefix;
@@ -232,6 +244,7 @@ impl Parser {
         match prefix_rule {
             PrefixRule::Number => self.number(),
             PrefixRule::Grouping => self.grouping(),
+            PrefixRule::Unary => self.unary(),
             PrefixRule::None => panic!("Expected expression"),
             _ => unreachable!(),
         }

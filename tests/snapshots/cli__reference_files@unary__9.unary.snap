@@ -1,0 +1,9 @@
+---
+source: tests/cli.rs
+expression: test_output
+input_file: test-files/unary/9.unary
+---
+status: 0
+stdout:
+  - "95632706705546620"
+stderr: []

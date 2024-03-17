@@ -30,6 +30,7 @@ impl Interpreter {
                     self.stack.push(match top {
                         Value::Float(val) => Value::Float(-val),
                         Value::Integer(val) => Value::Integer(-val),
+                        _ => panic!("Cannot negate a bool"),
                     });
                 }
             }
@@ -48,29 +49,60 @@ impl Interpreter {
                 OpCode::Op(Op::Minus) => Value::from(a - b),
                 OpCode::Op(Op::Multiply) => Value::from(a * b),
                 OpCode::Op(Op::Divide) => Value::from(a / b),
-                _ => unreachable!(),
+                OpCode::Op(Op::EqualEqual) => Value::Bool(a == b),
+                OpCode::Op(Op::BangEqual) => Value::Bool(a != b),
+                OpCode::Op(Op::Greater) => Value::Bool(a > b),
+                OpCode::Op(Op::GreaterEqual) => Value::Bool(a >= b),
+                OpCode::Op(Op::Less) => Value::Bool(a < b),
+                OpCode::Op(Op::LessEqual) => Value::Bool(a <= b),
+                _ => panic!("Invalid binary op"),
             }),
             (Value::Float(a), Value::Float(b)) => self.stack.push(match op {
                 OpCode::Op(Op::Plus) => Value::from(a + b),
                 OpCode::Op(Op::Minus) => Value::from(a - b),
                 OpCode::Op(Op::Multiply) => Value::from(a * b),
                 OpCode::Op(Op::Divide) => Value::from(a / b),
-                _ => unreachable!(),
+                OpCode::Op(Op::EqualEqual) => Value::Bool(a == b),
+                OpCode::Op(Op::BangEqual) => Value::Bool(a != b),
+                OpCode::Op(Op::Greater) => Value::Bool(a > b),
+                OpCode::Op(Op::GreaterEqual) => Value::Bool(a >= b),
+                OpCode::Op(Op::Less) => Value::Bool(a < b),
+                OpCode::Op(Op::LessEqual) => Value::Bool(a <= b),
+                _ => panic!("Invalid binary op"),
             }),
             (Value::Float(a), Value::Integer(b)) => self.stack.push(match op {
                 OpCode::Op(Op::Plus) => Value::from(a + b as f64),
                 OpCode::Op(Op::Minus) => Value::from(a - b as f64),
                 OpCode::Op(Op::Multiply) => Value::from(a * b as f64),
                 OpCode::Op(Op::Divide) => Value::from(a / b as f64),
-                _ => unreachable!(),
+                OpCode::Op(Op::EqualEqual) => Value::Bool(a == b as f64),
+                OpCode::Op(Op::BangEqual) => Value::Bool(a != b as f64),
+                OpCode::Op(Op::Greater) => Value::Bool(a > b as f64),
+                OpCode::Op(Op::GreaterEqual) => Value::Bool(a >= b as f64),
+                OpCode::Op(Op::Less) => Value::Bool(a < b as f64),
+                OpCode::Op(Op::LessEqual) => Value::Bool(a <= b as f64),
+                _ => panic!("Invalid binary op"),
             }),
             (Value::Integer(a), Value::Float(b)) => self.stack.push(match op {
                 OpCode::Op(Op::Plus) => Value::from(a as f64 + b),
                 OpCode::Op(Op::Minus) => Value::from(a as f64 - b),
                 OpCode::Op(Op::Multiply) => Value::from(a as f64 * b),
                 OpCode::Op(Op::Divide) => Value::from(a as f64 / b),
-                _ => unreachable!(),
+                OpCode::Op(Op::EqualEqual) => Value::Bool(a as f64 == b),
+                OpCode::Op(Op::BangEqual) => Value::Bool(a as f64 != b),
+                OpCode::Op(Op::Greater) => Value::Bool(a as f64 > b),
+                OpCode::Op(Op::GreaterEqual) => Value::Bool(a as f64 >= b),
+                OpCode::Op(Op::Less) => Value::Bool((a as f64) < b),
+                OpCode::Op(Op::LessEqual) => Value::Bool(a as f64 <= b),
+                _ => panic!("Invalid binary op"),
             }),
+            (Value::Bool(a), Value::Bool(b)) => {
+                self.stack.push(match op {
+                    OpCode::Op(Op::EqualEqual) => Value::Bool(a == b),
+                    _ => panic!("Invalid binary op"),
+                });
+            }
+            _ => panic!("Invalid binary op"),
         }
     }
 }

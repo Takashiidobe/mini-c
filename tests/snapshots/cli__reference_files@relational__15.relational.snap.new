@@ -1,0 +1,12 @@
+---
+source: tests/cli.rs
+assertion_line: 40
+expression: test_output
+input_file: test-files/relational/15.relational
+---
+status: 101
+stdout: []
+stderr:
+  - "thread 'main' panicked at src/parser.rs:303:33:"
+  - Expected expression
+  - "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace"

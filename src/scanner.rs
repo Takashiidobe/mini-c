@@ -34,13 +34,7 @@ impl Scanner {
             let op = self.consume();
             match op {
                 '+' | '-' | '*' | '/' | '(' | ')' => {
-                    let info = TokenInfo {
-                        length: 1,
-                        line: self.line,
-                        start: self.line_pos,
-                    };
-
-                    self.line_pos += 1;
+                    let info = self.token_info(1);
 
                     tokens.push(Token {
                         value: None,
@@ -56,6 +50,7 @@ impl Scanner {
                         },
                     });
                 }
+                '>' | '<' | '=' | '!' => self.relational(&mut tokens),
                 '0'..='9' => tokens.push(self.number()),
                 '\n' => {
                     self.line += 1;
@@ -68,14 +63,34 @@ impl Scanner {
         tokens.push(Token {
             r#type: TokenType::Eof,
             value: None,
-            info: TokenInfo {
-                length: 1,
-                line: self.line,
-                start: self.line_pos,
-            },
+            info: self.token_info(1),
         });
 
         tokens
+    }
+
+    fn relational(&mut self, tokens: &mut Vec<Token>) {
+        let c = self.prev().unwrap();
+
+        tokens.push(if self.r#match('=') {
+            let rel_eq = format!("{}=", c);
+            self.index += 1;
+            Token {
+                value: None,
+                r#type: TokenType::from(rel_eq.as_str()),
+                info: self.token_info(2),
+            }
+        } else {
+            Token {
+                value: None,
+                r#type: TokenType::from(c),
+                info: self.token_info(1),
+            }
+        });
+    }
+
+    fn r#match(&mut self, expected: char) -> bool {
+        !(self.is_at_end() || self.peek() != Some(expected))
     }
 
     fn number(&mut self) -> Token {
@@ -94,11 +109,7 @@ impl Scanner {
             }
         }
 
-        let info = TokenInfo {
-            length: number.len(),
-            line: self.line,
-            start: self.line_pos,
-        };
+        let info = self.token_info(number.len());
 
         self.line_pos += number.len();
 
@@ -147,6 +158,15 @@ impl Scanner {
             Some(self.source[self.index + 1])
         } else {
             None
+        }
+    }
+
+    fn token_info(&mut self, length: usize) -> TokenInfo {
+        self.line_pos += length;
+        TokenInfo {
+            start: self.line_pos,
+            length,
+            line: self.line,
         }
     }
 }

@@ -1,0 +1,109 @@
+---
+source: src/scanner.rs
+assertion_line: 189
+expression: scanner.scan()
+---
+- type: Integer
+  value:
+    Integer: 93367
+  info:
+    start: 5
+    length: 5
+    line: 0
+- type: Minus
+  value: ~
+  info:
+    start: 11
+    length: 1
+    line: 0
+- type: Integer
+  value:
+    Integer: 76920
+  info:
+    start: 16
+    length: 5
+    line: 0
+- type: Plus
+  value: ~
+  info:
+    start: 22
+    length: 1
+    line: 0
+- type: Integer
+  value:
+    Integer: 596894
+  info:
+    start: 28
+    length: 6
+    line: 0
+- type: Minus
+  value: ~
+  info:
+    start: 35
+    length: 1
+    line: 0
+- type: Integer
+  value:
+    Integer: 231722
+  info:
+    start: 41
+    length: 6
+    line: 0
+- type: Minus
+  value: ~
+  info:
+    start: 48
+    length: 1
+    line: 0
+- type: Integer
+  value:
+    Integer: 8350
+  info:
+    start: 52
+    length: 4
+    line: 0
+- type: Minus
+  value: ~
+  info:
+    start: 57
+    length: 1
+    line: 0
+- type: Float
+  value:
+    Float: 3517484393530
+  info:
+    start: 72
+    length: 15
+    line: 0
+- type: Minus
+  value: ~
+  info:
+    start: 88
+    length: 1
+    line: 0
+- type: Integer
+  value:
+    Integer: 65
+  info:
+    start: 90
+    length: 2
+    line: 0
+- type: Plus
+  value: ~
+  info:
+    start: 93
+    length: 1
+    line: 0
+- type: Integer
+  value:
+    Integer: 710
+  info:
+    start: 96
+    length: 3
+    line: 0
+- type: Eof
+  value: ~
+  info:
+    start: 100
+    length: 1
+    line: 0

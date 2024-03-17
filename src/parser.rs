@@ -157,6 +157,54 @@ lazy_static! {
                 ..Default::default()
             },
         ),
+        (
+            TokenType::BangEqual,
+            ParseRule {
+                infix: InfixRule::Binary,
+                precedence: Precedence::Equality,
+                ..Default::default()
+            },
+        ),
+        (
+            TokenType::EqualEqual,
+            ParseRule {
+                infix: InfixRule::Binary,
+                precedence: Precedence::Equality,
+                ..Default::default()
+            },
+        ),
+        (
+            TokenType::Greater,
+            ParseRule {
+                infix: InfixRule::Binary,
+                precedence: Precedence::Comparison,
+                ..Default::default()
+            },
+        ),
+        (
+            TokenType::GreaterEqual,
+            ParseRule {
+                infix: InfixRule::Binary,
+                precedence: Precedence::Comparison,
+                ..Default::default()
+            },
+        ),
+        (
+            TokenType::Less,
+            ParseRule {
+                infix: InfixRule::Binary,
+                precedence: Precedence::Comparison,
+                ..Default::default()
+            },
+        ),
+        (
+            TokenType::LessEqual,
+            ParseRule {
+                infix: InfixRule::Binary,
+                precedence: Precedence::Comparison,
+                ..Default::default()
+            },
+        ),
     ]);
 }
 
@@ -221,7 +269,14 @@ impl Parser {
             TokenType::Star => self.emit_byte(OpCode::Op(Op::Multiply)),
             TokenType::Slash => self.emit_byte(OpCode::Op(Op::Divide)),
             TokenType::Eof => self.emit_byte(OpCode::Return),
-            _ => panic!("Reached an error"),
+            TokenType::LeftParen | TokenType::RightParen | TokenType::Equal => {} // doesn't emit an op
+            TokenType::Greater => self.emit_byte(OpCode::Op(Op::Greater)),
+            TokenType::GreaterEqual => self.emit_byte(OpCode::Op(Op::GreaterEqual)),
+            TokenType::Less => self.emit_byte(OpCode::Op(Op::Less)),
+            TokenType::LessEqual => self.emit_byte(OpCode::Op(Op::LessEqual)),
+            TokenType::EqualEqual => self.emit_byte(OpCode::Op(Op::EqualEqual)),
+            TokenType::BangEqual => self.emit_byte(OpCode::Op(Op::BangEqual)),
+            TokenType::Error => panic!("Error"),
         }
     }
 

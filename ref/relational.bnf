@@ -1,0 +1,28 @@
+<program>              ::= 5 <expr> <operator> <program> | <literal> ;
+<grouping>             ::= "(" <expr> ")" ;
+<expr>                 ::= <number_expr> | <number_unary> | <bool_expr> ;
+
+<number_unary>         ::= "-" <number_unary> | "+" <number_unary> | "+" <number_expr> | "-" <number_expr> ; # number -> number
+<number_expr>          ::= <number_arith> <operator> <number_expr> | <number> ; # number -> number
+<number_arith>         ::= <number> <operator> <number_arith> | <number> <operator> <number> ; # number -> number -> number
+
+<bool_expr>            ::= <bool_eq> | <number_eq> | <number_rel> | <bool> ; # bool -> bool
+<bool_eq>              ::= 10 <bool> <equality> <bool_eq> | "(" <bool> <equality> <bool> ")" | <bool> <equality> <bool> ; # bool -> bool -> bool
+<number_eq>            ::= 10 <number> <equality> <number_eq> | "(" <number> <equality> <number> ")" | <number> <equality> <number> ; # number -> number -> bool
+<number_rel>           ::= 10 <number> <relational> <number_eq> | "(" <number> <relational> <number> ")" | <number> <relational> <number> ; # number -> number -> bool
+
+<operator>             ::= <equality> | <relational> | <term> ;
+<equality>             ::= "==" | "!="  ; # any -> any -> bool
+<relational>           ::= "<" | "<=" | ">" | ">=" ; # any -> any -> bool
+<term>                 ::= "+"  | "-" | "*" | "/" ;
+
+<number>               ::= <float> | <integer> ;
+<integer>              ::= 3 <nat_digit> <integer> | <digit> ;
+<float>                ::= <integer> "." <integer> ;
+
+<digit>                ::= <zero> | <nat_digit> ;
+<nat_digit>            ::= '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' ;
+<zero>                 ::= '0' ;
+
+<literal>              ::= <number> ;
+<bool>                 ::= "true" | "false" ;

@@ -1,0 +1,10 @@
+---
+source: tests/cli.rs
+assertion_line: 40
+expression: test_output
+input_file: test-files/relational/21.relational
+---
+status: 0
+stdout:
+  - "true"
+stderr: []

@@ -1,0 +1,12 @@
+---
+source: tests/cli.rs
+assertion_line: 40
+expression: test_output
+input_file: test-files/relational
+---
+status: 101
+stdout: []
+stderr:
+  - "thread 'main' panicked at src/main.rs:43:46:"
+  - "called `Result::unwrap()` on an `Err` value: Os { code: 21, kind: IsADirectory, message: \"Is a directory\" }"
+  - "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace"

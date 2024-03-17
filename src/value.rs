@@ -6,6 +6,7 @@ use serde::{Deserialize, Serialize};
 pub enum Value {
     Float(f64),
     Integer(i64),
+    Bool(bool),
 }
 
 impl From<f64> for Value {
@@ -25,6 +26,16 @@ impl fmt::Display for Value {
         match self {
             Value::Float(num) => f.write_fmt(format_args!("{}", num)),
             Value::Integer(num) => f.write_fmt(format_args!("{}", num)),
+            Value::Bool(b) => f.write_str(&b.to_string()),
+        }
+    }
+}
+
+impl Value {
+    pub fn is_falsey(&self) -> bool {
+        match self {
+            Value::Bool(b) => *b,
+            _ => false,
         }
     }
 }
